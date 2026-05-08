@@ -1,0 +1,14 @@
+# Database config — never push credentials
+db.php
+
+# XAMPP / local environment files
+*.log
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
