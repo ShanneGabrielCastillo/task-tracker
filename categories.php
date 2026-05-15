@@ -4,15 +4,9 @@ require_once 'auth.php';
 require_once 'db.php';
 
 $user_id  = (int) $_SESSION['user_id'];
-$username = '';
-$stmt = $conn->prepare('SELECT username FROM users WHERE id = ?');
-if ($stmt) {
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();
-    $row = $stmt->get_result()->fetch_assoc();
-    if ($row) $username = $row['username'];
-    $stmt->close();
-}
+
+// Fetch display name, username, and initial from session cache / DB
+require_once 'user_helper.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +19,7 @@ if ($stmt) {
 <body class="app-layout">
 
     <aside class="sidebar">
+        <button class="sidebar-close-btn" id="sidebar-close" aria-label="Close menu" onclick="document.querySelector('.sidebar').classList.remove('open');document.getElementById('sidebar-overlay')&&document.getElementById('sidebar-overlay').classList.remove('visible');document.body.classList.remove('sidebar-open');">✕</button>
         <a href="dashboard.php" class="sidebar-brand">
             <div class="sidebar-brand-icon">📋</div>
             <span class="sidebar-brand-name">Task Tracker</span>
@@ -38,13 +33,13 @@ if ($stmt) {
             <a href="reports.php"    class="nav-item"><span class="nav-icon">📊</span> Reports</a>
         </nav>
         <div class="sidebar-footer">
-            <div class="sidebar-user">
-                <div class="sidebar-avatar"><?php echo strtoupper(substr($username, 0, 1)); ?></div>
+            <a href="profile.php" class="sidebar-user sidebar-user-link">
+                <div class="sidebar-avatar"><?php echo $display_initial; ?></div>
                 <div class="sidebar-user-info">
-                    <div class="sidebar-username"><?php echo htmlspecialchars($username); ?></div>
+                    <div class="sidebar-username"><?php echo htmlspecialchars($display_name); ?></div>
                     <div class="sidebar-role">Student</div>
                 </div>
-            </div>
+            </a>
         </div>
     </aside>
 
@@ -54,10 +49,10 @@ if ($stmt) {
             <div class="header-breadcrumb">Organize your tasks by category</div>
         </div>
         <div class="header-right">
-            <div class="header-user-pill">
-                <div class="header-avatar"><?php echo strtoupper(substr($username, 0, 1)); ?></div>
-                <span class="header-username"><?php echo htmlspecialchars($username); ?></span>
-            </div>
+            <a href="profile.php" class="header-user-pill">
+                <div class="header-avatar"><?php echo $display_initial; ?></div>
+                <span class="header-username"><?php echo htmlspecialchars($display_name); ?></span>
+            </a>
             <a href="logout.php" class="btn-header-logout">⏻ Logout</a>
         </div>
     </header>
@@ -458,5 +453,6 @@ if ($stmt) {
     // ── Initial load ─────────────────────────────────────────
     loadCategories();
     </script>
+    <script src="sidebar.js"></script>
 </body>
 </html>

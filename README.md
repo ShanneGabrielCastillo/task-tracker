@@ -1,34 +1,83 @@
 # 📋 Task Tracker System
 
-A modern, full-featured student task management web application built with PHP, MySQL, HTML, CSS, and vanilla JavaScript.
+A modern, full-featured student task management web application built with **PHP**, **MySQL**, **HTML/CSS**, and **vanilla JavaScript** — no frameworks required.
+
+![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?logo=mysql&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+---
+
+## 📖 Overview
+
+Task Tracker is a productivity web app designed for students to manage their academic and personal tasks. It features a clean split-screen authentication flow, a sidebar-based dashboard, real-time task filtering and sorting, a calendar view, category management, analytics reports, and a full account recovery system with email OTP verification.
 
 ---
 
 ## ✨ Features
 
-- **Authentication** — Secure login and registration with password hashing
-- **Dashboard** — Overview with live statistics (Total, Completed, Pending, Overdue)
-- **Task Management** — Add, edit, complete, and delete tasks
-- **Smart Sorting** — Sort tasks by deadline or alphabetically (A–Z / Z–A)
-- **Filtering** — Filter by status (All / Completed / Pending / Overdue) and category
-- **Real-time Search** — Instant task search without page reload
-- **Categories** — Create and delete custom task categories
-- **Calendar View** — Month, Week, and Day views with task indicators
-- **Reports** — Donut chart for task status distribution and bar chart by category
-- **Responsive Design** — Works on mobile, tablet, and desktop
-- **Modern UI** — Split-screen login, sidebar navigation, smooth animations
+### 🔐 Authentication & Security
+- Secure login and registration with `password_hash()` / `password_verify()`
+- **Forgot Password** flow with 6-digit email OTP verification
+- OTP expiration (10 minutes), rate limiting, and max-attempt lockout
+- Session-based authentication scoped per user
+- All queries use **prepared statements** (SQL injection prevention)
+
+### 📊 Dashboard
+- Live statistics: Total, Completed, Pending, Overdue tasks
+- Add new tasks inline with title, deadline, and category
+- Real-time task list with status badges and deadline indicators
+- Category filter bar populated dynamically from the database
+
+### ✅ Task Management
+- Add, edit, complete, and delete tasks
+- Smart sorting: Deadline Ascending/Descending, A–Z, Z–A
+- Filter by status: All / Completed / Pending / Overdue
+- Real-time search by task title
+- Pagination (10 tasks per page)
+- Overdue detection based on today's date
+
+### 🏷️ Categories
+- Create and delete custom categories
+- Categories sync across all pages (dashboard, all tasks, filters)
+- Task count per category displayed live
+
+### 📅 Calendar
+- **Month view** — grid with task dots (green/yellow/red by status)
+- **Week view** — 7-column grid with task pills
+- **Day view** — detailed task list for a selected day
+- Navigate between months/weeks/days with prev/next controls
+
+### 📈 Reports
+- Donut chart: Task status distribution (Completed / Pending / Overdue)
+- Bar chart: Tasks by category
+- Recent tasks activity list
+
+### 👤 Profile Management
+- Edit First Name, Last Name, Username, Email
+- Change password with current password verification
+- Password strength meter
+- Live UI update after save (no page reload)
+
+### 📱 Mobile Responsive
+- Hamburger menu with slide-in sidebar
+- Touch-friendly inputs and buttons
+- Responsive layouts for all screen sizes (320px → desktop)
+- No horizontal overflow on any page
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer      | Technology                        |
-|------------|-----------------------------------|
-| Backend    | PHP 8 (procedural)                |
-| Database   | MySQL via MySQLi                  |
-| Frontend   | HTML5, CSS3, Vanilla JavaScript   |
-| Server     | Apache (XAMPP)                    |
-| Fonts      | Inter (system font stack)         |
+| Layer      | Technology                          |
+|------------|-------------------------------------|
+| Backend    | PHP 8 (procedural)                  |
+| Database   | MySQL 8 via MySQLi                  |
+| Frontend   | HTML5, CSS3, Vanilla JavaScript ES6 |
+| Server     | Apache (XAMPP)                      |
+| Email      | SMTP via raw PHP socket (no library)|
+| Fonts      | Inter (system font stack, no CDN)   |
 
 ---
 
@@ -36,7 +85,7 @@ A modern, full-featured student task management web application built with PHP, 
 
 ### Prerequisites
 
-- [XAMPP](https://www.apachefriends.org/) (or any Apache + PHP + MySQL stack)
+- [XAMPP](https://www.apachefriends.org/) v8.x or any Apache + PHP 8 + MySQL stack
 - Git
 
 ### Installation
@@ -45,43 +94,54 @@ A modern, full-featured student task management web application built with PHP, 
 
 ```bash
 git clone https://github.com/yourusername/task-tracker.git
+cd task-tracker
 ```
 
-**2. Move to your web server directory**
+**2. Move to your web server root**
 
 ```
-C:\xampp\htdocs\task-tracker\
+C:\xampp\htdocs\task-tracker3\
 ```
 
-**3. Set up the database**
+**3. Create the database**
 
-- Open **phpMyAdmin** at `http://localhost/phpmyadmin`
-- Create a new database named `task_tracker3`
-- Import the `task_tracker.sql` file
+- Open **phpMyAdmin** → `http://localhost/phpmyadmin`
+- Create a new database: `task_tracker3`
+- Import `task_tracker.sql`
 
 **4. Configure the database connection**
-
-Copy the example config file and fill in your credentials:
 
 ```bash
 cp db.example.php db.php
 ```
 
-Edit `db.php`:
+Edit `db.php` with your credentials:
 
 ```php
 $host = 'localhost';
-$user = 'root';       // your MySQL username
-$pass = '';           // your MySQL password
+$user = 'root';          // your MySQL username
+$pass = '';              // your MySQL password
 $db   = 'task_tracker3';
 ```
 
-**5. Run the app**
+**5. Configure email (for Forgot Password OTP)**
+
+Edit `mailer.php`:
+
+```php
+define('MAIL_USER', 'your_gmail@gmail.com');
+define('MAIL_PASS', 'your_16_char_app_password');  // Gmail App Password
+define('MAIL_FROM', 'your_gmail@gmail.com');
+```
+
+> To generate a Gmail App Password: Google Account → Security → 2-Step Verification → App Passwords
+
+**6. Start the app**
 
 Start Apache and MySQL in XAMPP, then open:
 
 ```
-http://localhost/task-tracker/index.php
+http://localhost/task-tracker3/index.php
 ```
 
 ---
@@ -89,47 +149,125 @@ http://localhost/task-tracker/index.php
 ## 📁 Project Structure
 
 ```
-task-tracker/
-├── index.php            # Login page
-├── register.php         # Registration page
-├── dashboard.php        # Main dashboard
-├── all_tasks.php        # All tasks table view
-├── calendar.php         # Calendar view
-├── categories.php       # Category management
-├── reports.php          # Analytics & reports
-├── edit_task.php        # Edit task form
-├── add_task.php         # Add task API endpoint
-├── update_task.php      # Update task API endpoint
-├── delete_task.php      # Delete task API endpoint
-├── category_add.php     # Add category API endpoint
-├── category_delete.php  # Delete category API endpoint
-├── get_categories.php   # Fetch categories API endpoint
-├── auth.php             # Session authentication guard
-├── db.php               # Database connection (not in repo)
-├── db.example.php       # Database config template
-├── logout.php           # Logout handler
-├── script.js            # Client-side task logic
-├── style.css            # All styles
-└── task_tracker.sql     # Database schema
+task-tracker3/
+│
+├── 📄 index.php              # Login page
+├── 📄 register.php           # Registration page
+├── 📄 forgot_password.php    # Step 1: Request OTP
+├── 📄 verify_otp.php         # Step 2: Verify OTP
+├── 📄 reset_password.php     # Step 3: Set new password
+│
+├── 📄 dashboard.php          # Main dashboard
+├── 📄 all_tasks.php          # All tasks table view
+├── 📄 calendar.php           # Calendar (Month/Week/Day)
+├── 📄 categories.php         # Category management
+├── 📄 reports.php            # Analytics & charts
+├── 📄 profile.php            # Edit profile page
+├── 📄 edit_task.php          # Edit task form
+│
+├── 📄 add_task.php           # API: create task
+├── 📄 update_task.php        # API: update task
+├── 📄 delete_task.php        # API: delete task
+├── 📄 update_profile.php     # API: update profile/password
+├── 📄 category_add.php       # API: create category
+├── 📄 category_delete.php    # API: delete category
+├── 📄 get_categories.php     # API: fetch categories
+│
+├── 📄 auth.php               # Session authentication guard
+├── 📄 user_helper.php        # Display name helper (session cache)
+├── 📄 mailer.php             # SMTP email helper + OTP email template
+├── 📄 logout.php             # Logout handler
+│
+├── 📄 db.php                 # DB connection (excluded from repo)
+├── 📄 db.example.php         # DB connection template
+├── 📄 task_tracker.sql       # Full database schema
+│
+├── 📄 script.js              # Dashboard task logic (render/filter/sort)
+├── 📄 sidebar.js             # Mobile hamburger menu
+└── 📄 style.css              # All styles (4000+ lines, fully documented)
+```
+
+---
+
+## 🗄️ Database Schema
+
+```sql
+users              — id, username, email, password, first_name, last_name
+tasks              — id, user_id, title, deadline, status, category
+categories         — id, user_id, name, description, created_at
+password_resets    — id, user_id, otp_hash, reset_token, expires_at, used, verified, attempts
 ```
 
 ---
 
 ## 📸 Screenshots
 
-> _Add screenshots of your app here_
+> Add screenshots of your running app here.
+>
+> Suggested shots:
+> - Login page (split-screen)
+> - Dashboard with stats
+> - All Tasks table view
+> - Calendar month view
+> - Mobile hamburger menu open
+> - Profile settings page
 
 ---
 
 ## 🔒 Security Notes
 
-- Passwords are hashed using `password_hash()` with `PASSWORD_DEFAULT`
-- All database queries use **prepared statements** to prevent SQL injection
-- User input is sanitized with `htmlspecialchars()` before output
-- Tasks are scoped to the authenticated user — no cross-user data access
+| Feature | Implementation |
+|---|---|
+| Password storage | `password_hash()` with `PASSWORD_DEFAULT` (bcrypt) |
+| SQL injection | All queries use MySQLi prepared statements |
+| XSS prevention | All output uses `htmlspecialchars()` |
+| OTP security | Stored as bcrypt hash, expires in 10 min, max 5 attempts |
+| Session isolation | All data scoped to `$_SESSION['user_id']` |
+| CSRF | Forms use POST; API endpoints validate session before any write |
+
+---
+
+## 🌐 Running with ngrok (Public URL)
+
+To share your local app publicly:
+
+```bash
+ngrok http 80
+```
+
+Then visit: `https://your-subdomain.ngrok-free.app/task-tracker3/index.php`
+
+> Note: `ngrok.exe` is excluded from the repository via `.gitignore`.
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] Push notifications for upcoming deadlines
+- [ ] Task reminders via email
+- [ ] Team/shared task boards
+- [ ] Dark mode toggle
+- [ ] Drag-and-drop task reordering
+- [ ] File attachments on tasks
+- [ ] Export tasks to CSV/PDF
+- [ ] Google Calendar sync
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "Add your feature"`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+*Built with ❤️ as a student productivity tool.*

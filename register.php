@@ -1,59 +1,62 @@
 <?php
 // register.php — User Registration
-// Renders the registration form on GET.
-// On POST: validates inputs, checks for duplicate username,
-// hashes the password, inserts the new user, and redirects to index.php.
-
 require_once 'db.php';
 
-// Allow ngrok to serve pages without the browser-warning interstitial
 header('ngrok-skip-browser-warning: true');
+
+// Safe migration — ensure email column exists
+$conn->query("ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) NOT NULL DEFAULT ''");
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve and trim form inputs
     $username = trim($_POST['username'] ?? '');
+    $email    = trim($_POST['email']    ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Validate that both fields are non-empty
-    if ($username === '' && $password === '') {
-        $error = 'Username and password are required.';
-    } elseif ($username === '') {
+    if ($username === '') {
         $error = 'Username is required.';
+    } elseif ($email === '') {
+        $error = 'Email address is required.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Please enter a valid email address.';
     } elseif ($password === '') {
         $error = 'Password is required.';
     } else {
-        // Check for duplicate username using a prepared statement
+        // Check for duplicate username
         $stmt = $conn->prepare('SELECT id FROM users WHERE username = ?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
+        $userExists = $stmt->num_rows > 0;
+        $stmt->close();
 
-        if ($stmt->num_rows > 0) {
-            // Username already exists — show error
+        // Check for duplicate email
+        $stmt2 = $conn->prepare('SELECT id FROM users WHERE email = ?');
+        $stmt2->bind_param('s', $email);
+        $stmt2->execute();
+        $stmt2->store_result();
+        $emailExists = $stmt2->num_rows > 0;
+        $stmt2->close();
+
+        if ($userExists) {
             $error = 'Username is already taken. Please choose a different one.';
+        } elseif ($emailExists) {
+            $error = 'An account with that email already exists.';
         } else {
-            // Hash the password securely before storing
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insert the new user into the users table
-            $insert = $conn->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
-            $insert->bind_param('ss', $username, $hashed);
-
+            $insert = $conn->prepare(
+                'INSERT INTO users (username, email, password) VALUES (?, ?, ?)'
+            );
+            $insert->bind_param('sss', $username, $email, $hashed);
             if ($insert->execute()) {
-                // Registration successful — redirect to login page
                 header('Location: index.php');
                 exit;
             } else {
-                // Database insert failed
                 $error = 'Registration failed. Please try again.';
             }
-
             $insert->close();
         }
-
-        $stmt->close();
     }
 }
 ?>
@@ -167,6 +170,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 autocomplete="username"
                             >
                         </div>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="email" class="auth-label">Email Address</label>
+                        <div class="auth-input-wrap">
+                            <span class="auth-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </span>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="auth-input"
+                                placeholder="your@email.com"
+                                value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <span style="font-size:.75rem;color:var(--text-muted);margin-top:4px;display:block;">Used for password recovery only</span>
                     </div>
 
                     <div class="auth-field">

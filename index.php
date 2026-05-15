@@ -10,6 +10,10 @@ require_once 'db.php';
 // Allow ngrok to serve pages without the browser-warning interstitial
 header('ngrok-skip-browser-warning: true');
 
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.cookie_httponly', '1');
+session_name('TASKTRACKER');
+
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Invalid username or password.';
         } else {
             // Credentials are valid — start a session and store the user's id
+            ini_set('session.cookie_samesite', 'Lax');
+            ini_set('session.cookie_httponly', '1');
+            session_name('TASKTRACKER');
             session_start();
             $_SESSION['user_id'] = $row['id'];
 
@@ -133,6 +140,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <?php endif; ?>
 
+                <?php if (isset($_GET['reset']) && $_GET['reset'] === 'success'): ?>
+                <div class="auth-alert auth-alert-success" role="alert">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Password reset successfully! You can now sign in with your new password.
+                </div>
+                <?php endif; ?>
+
                 <form method="POST" action="index.php" class="auth-form" novalidate>
 
                     <div class="auth-field">
@@ -156,7 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="auth-field">
-                        <label for="password" class="auth-label">Password</label>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+                            <label for="password" class="auth-label" style="margin-bottom:0;">Password</label>
+                            <a href="forgot_password.php" class="auth-forgot">Forgot password?</a>
+                        </div>
                         <div class="auth-input-wrap">
                             <span class="auth-input-icon">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>

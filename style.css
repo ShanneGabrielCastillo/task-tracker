@@ -2366,273 +2366,49 @@ button.btn-loading {
 }
 
 /* =========================================================
-   Responsive — Tablet (≤ 768px)
+   Responsive — Tablet (≤ 768px)  [core layout only]
    ========================================================= */
 @media (max-width: 768px) {
-    /* Sidebar collapses off-screen */
+    /* Sidebar: slide off-screen by default, slide in when .open */
     .sidebar {
         transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(.4,0,.2,1);
     }
 
     .sidebar.open {
         transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0,0,0,.18);
     }
 
+    /* Header spans full width (no sidebar offset) */
     .app-header {
         left: 0;
     }
 
+    /* Main content: no left margin */
     .app-main {
         margin-left: 0;
     }
 
+    /* Charts stack vertically */
     .charts-row {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-header {
-        padding: 0 20px;
-        height: auto;
-        min-height: 56px;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    .dashboard-header h1 {
-        font-size: 1rem;
-    }
-
-    .header-user {
-        gap: 10px;
-        font-size: 0.82rem;
-    }
-
-    .dashboard-main {
-        margin: 24px auto;
-        padding: 0 16px;
-    }
-
-    .task-form-section {
-        padding: 22px 20px;
-    }
-
-    /* Stack the form row on tablet too */
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .form-row .form-group {
-        margin-bottom: 14px;
-    }
-
-    .task-form-section .btn-primary {
-        width: 100%;
-        padding: 12px 20px;
-        margin-top: 4px;
-    }
-
-    .task-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .task-actions {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .btn-edit,
-    .btn-complete,
-    .btn-delete {
-        flex: 1;
-        justify-content: center;
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        min-height: 38px;
-    }
-
+    /* Auth container */
     .auth-container {
         max-width: 480px;
         margin: 0 auto;
         padding: 36px 28px;
     }
-
-    /* Stats grid — 2 columns on tablet */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
 }
 
 /* =========================================================
-   Responsive — Mobile (≤ 480px)
+   Responsive — Mobile (≤ 480px)  [core only]
    ========================================================= */
 @media (max-width: 480px) {
     body {
         font-size: 14px;
-    }
-
-    /* Header stacks brand + user vertically */
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 12px 16px;
-        height: auto;
-        gap: 6px;
-    }
-
-    .header-user {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .dashboard-main {
-        margin: 16px auto;
-        padding: 0 12px;
-    }
-
-    .task-form-section {
-        padding: 18px 14px;
-        border-radius: var(--radius-sm);
-    }
-
-    /* Inputs and buttons — larger tap targets */
-    .form-group input[type="text"],
-    .form-group input[type="password"],
-    .form-group input[type="date"] {
-        padding: 12px 14px;
-        font-size: 1rem;
-        min-height: 46px;
-    }
-
-    .btn-primary {
-        padding: 13px 20px;
-        font-size: 1rem;
-        min-height: 48px;
-    }
-
-    .btn-logout {
-        padding: 8px 14px;
-        font-size: 0.8rem;
-        min-height: 36px;
-    }
-
-    /* Controls bar stacks vertically */
-    .controls-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-
-    .filter-section {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .btn-filter {
-        flex: 1;
-        text-align: center;
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        min-height: 38px;
-    }
-
-    .search-section {
-        min-width: unset;
-        width: 100%;
-    }
-
-    .search-section input[type="text"] {
-        padding: 10px 14px 10px 36px;
-        font-size: 0.95rem;
-        min-height: 42px;
-    }
-
-    /* Category filter wraps nicely */
-    .category-filter-bar {
-        gap: 6px;
-    }
-
-    .btn-cat {
-        padding: 7px 12px;
-        font-size: 0.8rem;
-        min-height: 36px;
-    }
-
-    /* Task cards */
-    .task-card {
-        padding: 14px 14px;
-        border-radius: var(--radius-sm);
-    }
-
-    .task-title {
-        font-size: 0.95rem;
-        white-space: normal;
-        word-break: break-word;
-    }
-
-    .task-actions {
-        gap: 6px;
-    }
-
-    .btn-edit,
-    .btn-complete,
-    .btn-delete {
-        flex: 1;
-        justify-content: center;
-        padding: 9px 8px;
-        font-size: 0.78rem;
-        min-height: 40px;
-    }
-
-    /* Auth pages */
-    .auth-container {
-        margin: 0;
-        padding: 28px 20px;
-        border-radius: var(--radius);
-    }
-
-    .auth-container h1 {
-        font-size: 1.35rem;
-    }
-
-    .auth-subtitle {
-        font-size: 0.82rem;
-        margin-bottom: 24px;
-    }
-
-    .auth-logo-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 1.05rem;
-    }
-
-    /* Stats grid — single column on mobile, compact cards */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 18px;
-    }
-
-    .stat-card {
-        padding: 14px 16px;
-        gap: 10px;
-    }
-
-    .stat-icon {
-        width: 34px;
-        height: 34px;
-        font-size: 1rem;
-    }
-
-    .stat-value {
-        font-size: 1.35rem;
     }
 }
 
@@ -4141,4 +3917,1000 @@ button.btn-loading {
     color: var(--text-secondary);
     font-size: 0.85rem;
     max-width: 320px;
+}
+
+/* =========================================================
+   Sidebar user — clickable link variant
+   ========================================================= */
+.sidebar-user-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.sidebar-user-link:hover {
+    background: var(--brand-light);
+    border-color: var(--brand);
+    text-decoration: none;
+}
+
+.sidebar-user-link .sidebar-username {
+    transition: color var(--transition);
+}
+
+.sidebar-user-link:hover .sidebar-username {
+    color: var(--brand);
+}
+
+.sidebar-user-link.active-profile {
+    background: var(--brand-light);
+    border-color: var(--brand);
+}
+
+.sidebar-user-link.active-profile .sidebar-username {
+    color: var(--brand);
+}
+
+/* =========================================================
+   Profile page layout
+   ========================================================= */
+.profile-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ── Avatar card ─────────────────────────────────────────── */
+.profile-avatar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    position: sticky;
+    top: calc(var(--header-h) + 28px);
+}
+
+.profile-avatar-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--brand-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(99,102,241,.35);
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.profile-avatar-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+    word-break: break-word;
+}
+
+.profile-avatar-username {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.profile-avatar-badge {
+    margin-top: 4px;
+    padding: 3px 12px;
+    background: var(--brand-light);
+    color: var(--brand);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* ── Profile cards ───────────────────────────────────────── */
+.profile-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px 26px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.profile-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--brand-light);
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.1px;
+    margin-bottom: 2px;
+}
+
+.profile-card-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.profile-card-footer {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ── Form fields ─────────────────────────────────────────── */
+.profile-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.profile-field:last-child {
+    margin-bottom: 0;
+}
+
+.profile-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-required {
+    color: var(--danger);
+    font-weight: 400;
+}
+
+.profile-input {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--surface-2);
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    outline: none;
+    width: 100%;
+    min-height: 42px;
+}
+
+.profile-input:focus {
+    border-color: var(--brand);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(99,102,241,.13);
+}
+
+.profile-input::placeholder {
+    color: var(--text-muted);
+}
+
+.profile-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ── Password input wrap ─────────────────────────────────── */
+.profile-pw-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profile-pw-wrap .profile-input {
+    padding-right: 40px;
+}
+
+.profile-pw-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--text-muted);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color var(--transition), background var(--transition);
+    line-height: 1;
+}
+
+.profile-pw-toggle:hover {
+    color: var(--brand);
+    background: var(--brand-light);
+}
+
+/* ── Password strength ───────────────────────────────────── */
+.pw-strength {
+    margin-top: 6px;
+}
+
+.pw-strength-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.pw-seg {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    transition: background 0.25s ease;
+}
+
+.pw-seg.active-weak   { background: var(--danger); }
+.pw-seg.active-fair   { background: var(--warning); }
+.pw-seg.active-good   { background: var(--info); }
+.pw-seg.active-strong { background: var(--success); }
+
+.pw-strength-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* ── Alert banners ───────────────────────────────────────── */
+.profile-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    animation: fadeSlideUp 0.2s ease both;
+}
+
+.profile-alert-error {
+    background: var(--danger-light);
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.profile-alert-success {
+    background: var(--success-light);
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+/* ── Save button ─────────────────────────────────────────── */
+.profile-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 24px;
+    min-height: 40px;
+    background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    box-shadow: 0 3px 10px rgba(99,102,241,.35);
+    letter-spacing: 0.1px;
+}
+
+.profile-save-btn:hover {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, #7c3aed 100%);
+    box-shadow: 0 5px 16px rgba(99,102,241,.45);
+    transform: translateY(-1px);
+}
+
+.profile-save-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.profile-save-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.profile-save-btn .btn-spinner {
+    display: inline-flex;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-avatar-card {
+        position: static;
+        flex-direction: row;
+        text-align: left;
+        padding: 18px 20px;
+        gap: 16px;
+    }
+
+    .profile-avatar-circle {
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .profile-avatar-card > div:not(.profile-avatar-circle) {
+        text-align: left;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 18px 16px;
+    }
+
+    .profile-card-footer {
+        justify-content: stretch;
+    }
+
+    .profile-save-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   Forgot password link (restored)
+   ========================================================= */
+.auth-forgot {
+    font-size: 0.8rem;
+    color: var(--brand);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition);
+    white-space: nowrap;
+}
+
+.auth-forgot:hover {
+    color: var(--brand-dark);
+    text-decoration: underline;
+}
+
+/* =========================================================
+   Auth alert — success variant
+   ========================================================= */
+.auth-alert-success {
+    background: var(--success-light);
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+/* =========================================================
+   OTP verification inputs
+   ========================================================= */
+.otp-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.otp-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.otp-box {
+    width: 48px;
+    height: 56px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    background: var(--surface-2);
+    transition: border-color var(--transition), box-shadow var(--transition),
+                background var(--transition), transform var(--transition);
+    outline: none;
+    caret-color: var(--brand);
+    font-family: 'Courier New', monospace;
+}
+
+.otp-box:focus {
+    border-color: var(--brand);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+    transform: scale(1.06);
+}
+
+.otp-box:not(:placeholder-shown) {
+    border-color: var(--brand);
+    background: var(--brand-light);
+    color: var(--brand);
+}
+
+.otp-sep {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin: 0 2px;
+    user-select: none;
+}
+
+/* Countdown timer */
+.otp-timer {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.otp-timer #countdown {
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+/* ── Responsive OTP ──────────────────────────────────────── */
+@media (max-width: 480px) {
+    .otp-box {
+        width: 40px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .otp-inputs {
+        gap: 6px;
+    }
+}
+
+/* =========================================================
+   MOBILE REDESIGN — Hamburger menu + full mobile overhaul
+   ========================================================= */
+
+/* ── Hamburger button ────────────────────────────────────── */
+#hamburger-btn {
+    display: none;          /* hidden on desktop */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+#hamburger-btn:hover {
+    background: var(--brand-light);
+    border-color: var(--brand);
+}
+
+.ham-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: background var(--transition);
+}
+
+#hamburger-btn:hover .ham-line {
+    background: var(--brand);
+}
+
+/* ── Sidebar overlay backdrop ────────────────────────────── */
+#sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;           /* never intercept clicks when hidden */
+    transition: opacity 0.25s ease;
+}
+
+#sidebar-overlay.visible {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;           /* only intercept clicks when actually visible */
+}
+
+/* Prevent background scroll when sidebar is open */
+body.sidebar-open {
+    overflow: hidden;
+}
+
+/* ── Sidebar close button (inside sidebar on mobile) ─────── */
+.sidebar-close-btn {
+    display: none;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: background var(--transition), color var(--transition);
+    z-index: 1;
+}
+
+.sidebar-close-btn:hover {
+    background: var(--danger-light);
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* =========================================================
+   MOBILE ≤ 768px — App shell overhaul
+   ========================================================= */
+@media (max-width: 768px) {
+
+    /* Show hamburger and sidebar close btn on mobile */
+    /* NOTE: #sidebar-overlay is shown via JS (.visible class) only — */
+    /* never set display:block here or it will block all interactions  */
+    #hamburger-btn       { display: flex; }
+    .sidebar-close-btn   { display: flex; }
+
+    /* Sidebar: slide in from left, full height */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+        z-index: 200;
+        width: 260px;
+        position: fixed;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0,0,0,.18);
+    }
+
+    /* Header: full width, add left padding for hamburger */
+    .app-header {
+        left: 0;
+        padding: 0 16px;
+        gap: 10px;
+    }
+
+    /* Shrink header text on mobile */
+    .header-page-title  { font-size: 0.95rem; }
+    .header-breadcrumb  { display: none; }
+
+    /* Hide username text in pill — show avatar only */
+    .header-username    { display: none; }
+    .header-user-pill   { padding: 4px; border-radius: 50%; }
+
+    /* Main content: no left margin (sidebar is overlaid) */
+    .app-main {
+        margin-left: 0;
+        padding: 20px 14px;
+    }
+
+    /* Page header: stack title + button vertically */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .page-title  { font-size: 1.25rem; }
+    .page-subtitle { font-size: 0.8rem; }
+
+    /* Stats grid: 2 columns */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .stat-card {
+        padding: 14px 12px;
+        gap: 10px;
+        border-radius: var(--radius-sm);
+    }
+
+    .stat-value { font-size: 1.4rem; }
+    .stat-label { font-size: 0.68rem; }
+
+    /* Task form */
+    .task-form-section {
+        padding: 18px 14px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 12px;
+    }
+
+    .task-form-section .btn-primary {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    /* Task cards */
+    .task-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px;
+        min-height: unset;
+    }
+
+    .task-title {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .task-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .btn-edit,
+    .btn-complete,
+    .btn-delete {
+        flex: 1;
+        min-width: 80px;
+        justify-content: center;
+        min-height: 38px;
+    }
+
+    /* Controls bar */
+    .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .filter-section {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-filter {
+        flex: 1;
+        text-align: center;
+        min-height: 38px;
+    }
+
+    .search-section {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* All Tasks page controls */
+    .page-controls {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .page-controls .filter-tabs {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .page-controls .ctrl-select,
+    .page-controls .sort-dropdown,
+    .page-controls .search-section {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 0;
+    }
+
+    .page-controls .search-section {
+        flex: 1 1 100%;
+    }
+
+    /* Task table: horizontal scroll */
+    .task-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--radius-sm);
+    }
+
+    .task-table {
+        min-width: 560px;
+    }
+
+    /* Calendar */
+    .calendar-controls {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cal-nav { flex: 1; justify-content: center; }
+
+    .view-toggle {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .calendar-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cal-grid {
+        min-width: 420px;
+    }
+
+    /* Charts */
+    .charts-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Category table */
+    .cat-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cat-table { min-width: 480px; }
+
+    /* Profile layout */
+    .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .profile-avatar-card {
+        position: static;
+        flex-direction: row;
+        text-align: left;
+        padding: 16px;
+        gap: 14px;
+    }
+
+    .profile-avatar-circle {
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .profile-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 18px 14px;
+    }
+
+    .profile-card-footer {
+        justify-content: stretch;
+    }
+
+    .profile-save-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Pagination */
+    .pagination {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Modals */
+    .confirm-box {
+        padding: 24px 18px;
+        margin: 0 8px;
+    }
+
+    .cat-modal-box {
+        padding: 20px 16px;
+        margin: 0 8px;
+    }
+
+    .cat-modal-footer {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .cat-modal-footer .btn-secondary,
+    .cat-modal-footer .auth-submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   MOBILE ≤ 480px — Small phone overhaul
+   ========================================================= */
+@media (max-width: 480px) {
+
+    .app-main {
+        padding: 16px 12px;
+    }
+
+    .app-header {
+        padding: 0 12px;
+        height: 56px;
+    }
+
+    .page-title { font-size: 1.15rem; }
+
+    /* Stats: 2 compact columns */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 12px 10px;
+        gap: 8px;
+    }
+
+    .stat-value { font-size: 1.25rem; }
+
+    /* Inputs */
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group input[type="date"],
+    .form-group select,
+    .profile-input,
+    .auth-input {
+        font-size: 1rem;
+        min-height: 46px;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .auth-submit-btn,
+    .profile-save-btn {
+        min-height: 48px;
+        font-size: 0.95rem;
+    }
+
+    /* Header logout button — text only on very small screens */
+    .btn-header-logout {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    /* Category filter pills wrap */
+    .category-filter-bar {
+        gap: 6px;
+    }
+
+    .btn-cat {
+        padding: 7px 12px;
+        font-size: 0.78rem;
+        min-height: 34px;
+    }
+
+    /* OTP boxes */
+    .otp-box {
+        width: 38px;
+        height: 46px;
+        font-size: 1.2rem;
+    }
+
+    .otp-inputs { gap: 5px; }
+
+    /* Auth split — single column */
+    .auth-split {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-panel-left { display: none; }
+
+    .auth-panel-right {
+        min-height: 100vh;
+        padding: 28px 16px;
+    }
+
+    .auth-form-card { max-width: 100%; }
+    .auth-form-title { font-size: 1.4rem; }
+
+    /* Confirm modal */
+    .confirm-box {
+        padding: 20px 14px;
+    }
+
+    .confirm-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .confirm-actions .btn-secondary,
+    .confirm-actions .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Sort dropdown full width */
+    .sort-dropdown { width: 100%; }
+    .sort-trigger  { width: 100%; justify-content: space-between; }
+    .sort-menu     { left: 0; right: 0; min-width: unset; width: 100%; }
 }

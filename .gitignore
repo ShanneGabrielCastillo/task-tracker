@@ -1,14 +1,45 @@
-# Database config — never push credentials
+# ── Database credentials — NEVER commit ──────────────────────────────────
 db.php
 
-# XAMPP / local environment files
+# ── Email credentials — NEVER commit ─────────────────────────────────────
+mailer.php
+
+# ── Tunnel / local tools — not part of the project ───────────────────────
+ngrok.exe
+ngrok
+*.ngrok*
+
+# ── XAMPP / server logs ───────────────────────────────────────────────────
 *.log
 *.bak
+error_log
 
-# OS files
+# ── OS-generated files ────────────────────────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Editor folders
+# ── Editor / IDE folders ──────────────────────────────────────────────────
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# ── PHP cache / temp ──────────────────────────────────────────────────────
+/vendor/
+composer.lock
+
+# ── Environment files ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+
+# ── Uploaded files (if any) ───────────────────────────────────────────────
+/uploads/
+/tmp/

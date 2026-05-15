@@ -5,9 +5,18 @@
 
 // Set JSON content type before any output
 header('Content-Type: application/json');
+header('ngrok-skip-browser-warning: true');
 
-// Include authentication guard (starts session, redirects if unauthenticated)
-require_once 'auth.php';
+// Inline session auth — returns JSON on failure instead of redirecting
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.cookie_httponly', '1');
+session_name('TASKTRACKER');
+session_start();
+
+if (empty($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'error' => 'Session expired. Please log in again.']);
+    exit;
+}
 
 // Include database connection ($conn)
 require_once 'db.php';

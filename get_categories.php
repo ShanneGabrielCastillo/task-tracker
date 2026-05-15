@@ -5,7 +5,19 @@
 // Returns JSON: [ { id, name, description, task_count }, ... ]
 
 header('Content-Type: application/json');
-require_once 'auth.php';
+header('ngrok-skip-browser-warning: true');
+
+// Inline session auth — returns JSON on failure instead of redirecting
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.cookie_httponly', '1');
+session_name('TASKTRACKER');
+session_start();
+
+if (empty($_SESSION['user_id'])) {
+    echo json_encode([]);
+    exit;
+}
+
 require_once 'db.php';
 
 $user_id = (int) $_SESSION['user_id'];
