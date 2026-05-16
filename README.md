@@ -93,7 +93,7 @@ Task Tracker is a productivity web app designed for students to manage their aca
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/task-tracker.git
+git clone https://github.com/ShanneGabrielCastillo/task-tracker.git
 cd task-tracker
 ```
 
@@ -201,16 +201,21 @@ password_resets    — id, user_id, otp_hash, reset_token, expires_at, used, ver
 ---
 
 ## 📸 Screenshots
+<img width="1363" height="635" alt="image" src="https://github.com/user-attachments/assets/ca7e6702-94ff-4c92-babc-8bc7498d69ff" />
+<img width="1351" height="628" alt="image" src="https://github.com/user-attachments/assets/403e2b5d-4914-46ff-acc3-ca864cc54b09" />
+<img width="1364" height="631" alt="image" src="https://github.com/user-attachments/assets/66e90d35-5311-45fa-97cb-b9e36ffbdec4" />
+<img width="1365" height="631" alt="image" src="https://github.com/user-attachments/assets/c9727fab-ec86-4378-bb90-d46c4f433678" />
+<img width="1365" height="630" alt="image" src="https://github.com/user-attachments/assets/c8cbc120-5188-475f-91f1-fc818d39dca8" />
+<img width="1350" height="632" alt="image" src="https://github.com/user-attachments/assets/22a4fb30-67aa-4361-a735-0d211fc9b20d" />
+<img width="1347" height="625" alt="image" src="https://github.com/user-attachments/assets/e8cb46de-44dc-44fe-8257-8829111ab2fe" />
+<img width="1348" height="627" alt="image" src="https://github.com/user-attachments/assets/e8d9319a-c160-48a9-9969-7cce06884ae2" />
+<img width="1351" height="632" alt="image" src="https://github.com/user-attachments/assets/4970d836-2625-48e5-85f4-926139498eb9" />
+<img width="1357" height="634" alt="image" src="https://github.com/user-attachments/assets/d85ecf44-35fa-4fad-bb4c-91aaa76a89e5" />
+<img width="1361" height="630" alt="image" src="https://github.com/user-attachments/assets/9d41b05a-0872-4bd7-bb06-28030008a4e4" />
+<img width="1341" height="627" alt="image" src="https://github.com/user-attachments/assets/f3ccd0b5-da9f-4a7e-82b6-f965a2a520d4" />
+<img width="1350" height="629" alt="image" src="https://github.com/user-attachments/assets/4aad5d6d-3518-4285-bb40-52920b5cecd0" />
+<img width="1348" height="624" alt="image" src="https://github.com/user-attachments/assets/6ca2ed00-6fcb-40b4-91bd-fa737cea4b95" />
 
-> Add screenshots of your running app here.
->
-> Suggested shots:
-> - Login page (split-screen)
-> - Dashboard with stats
-> - All Tasks table view
-> - Calendar month view
-> - Mobile hamburger menu open
-> - Profile settings page
 
 ---
 
